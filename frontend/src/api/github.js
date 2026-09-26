@@ -1,22 +1,32 @@
 import axios from "axios";
 
-// ---------------- API Clients ----------------
+// =======================================================
+// Base API URL
+// =======================================================
+
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
+// =======================================================
+// API Clients
+// =======================================================
 
 const githubApi = axios.create({
-  baseURL: "http://127.0.0.1:8000/github",
+  baseURL: `${API_URL}/github`,
 });
 
 const favoritesApi = axios.create({
-  baseURL: "http://127.0.0.1:8000/favorites",
+  baseURL: `${API_URL}/favorites`,
 });
 
 const authApi = axios.create({
-  baseURL: "http://127.0.0.1:8000/auth",
+  baseURL: `${API_URL}/auth`,
 });
 
-// ---------------- Attach JWT ----------------
+// =======================================================
+// Attach JWT Token
+// =======================================================
 
-favoritesApi.interceptors.request.use((config) => {
+const attachToken = (config) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -24,9 +34,15 @@ favoritesApi.interceptors.request.use((config) => {
   }
 
   return config;
-});
+};
 
-// ---------------- GitHub ----------------
+githubApi.interceptors.request.use(attachToken);
+favoritesApi.interceptors.request.use(attachToken);
+authApi.interceptors.request.use(attachToken);
+
+// =======================================================
+// GitHub APIs
+// =======================================================
 
 export const getTrendingRepositories = async () => {
   const response = await githubApi.get("/trending");
@@ -34,12 +50,16 @@ export const getTrendingRepositories = async () => {
 };
 
 export const searchRepositories = async (query) => {
-  const response = await githubApi.get(`/repositories?query=${query}`);
+  const response = await githubApi.get("/repositories", {
+    params: { query },
+  });
   return response.data;
 };
 
 export const searchDevelopers = async (query) => {
-  const response = await githubApi.get(`/developers?query=${query}`);
+  const response = await githubApi.get("/developers", {
+    params: { query },
+  });
   return response.data;
 };
 
@@ -48,7 +68,9 @@ export const getDeveloperProfile = async (username) => {
   return response.data;
 };
 
-// ---------------- Repository Favorites ----------------
+// =======================================================
+// Favorite Repositories
+// =======================================================
 
 export const getFavoriteRepositories = async () => {
   const response = await favoritesApi.get("/repositories");
@@ -65,7 +87,9 @@ export const deleteFavoriteRepository = async (repoId) => {
   return response.data;
 };
 
-// ---------------- Developer Favorites ----------------
+// =======================================================
+// Favorite Developers
+// =======================================================
 
 export const getFavoriteDevelopers = async () => {
   const response = await favoritesApi.get("/developers");
@@ -82,7 +106,9 @@ export const deleteFavoriteDeveloper = async (developerId) => {
   return response.data;
 };
 
-// ---------------- Authentication ----------------
+// =======================================================
+// Authentication
+// =======================================================
 
 export const login = async (username, password) => {
   const form = new URLSearchParams();
@@ -108,16 +134,3 @@ export const register = async (username, email, password) => {
 
   return response.data;
 };
-
-const attachToken = (config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-};
-
-githubApi.interceptors.request.use(attachToken);
-favoritesApi.interceptors.request.use(attachToken);
