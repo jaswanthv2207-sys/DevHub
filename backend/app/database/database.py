@@ -1,9 +1,19 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "postgresql+psycopg2://jaswanth@/devhub"
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./devhub.db")
 
-engine = create_engine(DATABASE_URL)
+connect_args = {}
+
+if DATABASE_URL.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=connect_args,
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,
@@ -12,6 +22,7 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()
