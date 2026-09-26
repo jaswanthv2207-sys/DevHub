@@ -1,0 +1,36 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/.pytest_cache/
+backend/.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# SQLite
+*.db
+
+# Python cache
+*.pyc
+
+# Coverage
+.coverage
+htmlcov/
+
+# Build
+build/
+dist/
+
+# Misc
+.env
