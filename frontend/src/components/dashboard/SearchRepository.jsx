@@ -81,35 +81,12 @@ export default function SearchRepository({
               setSelectedRepo(repo.id);
               onSelectRepository(repo);
             }}
-            className={`group rounded-2xl border p-5 transition-all duration-300 cursor-pointer
-            ${
+            className={`relative group rounded-2xl border p-5 transition-all duration-300 cursor-pointer
               selectedRepo === repo.id
                 ? "border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,.25)]"
                 : "border-[#30363d] hover:border-cyan-400"
             }`}
           >
-            <button
-              onClick={async (e) => {
-                e.stopPropagation();
-
-                try {
-                  await addFavoriteRepository({
-                    repo_id: repo.id,
-                    repo_name: repo.name,
-                    owner: repo.owner,
-                    html_url: repo.url,
-                  });
-
-                  onFavoriteAdded?.();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              className="absolute right-5 top-5 text-yellow-400 hover:scale-125 transition"
-            >
-              ⭐
-            </button>
-
             <div className="flex justify-between">
               <div>
                 <h3 className="text-xl font-bold group-hover:text-cyan-400 transition">
@@ -121,11 +98,41 @@ export default function SearchRepository({
                 </p>
               </div>
 
-              <img
-                src={repo.avatar}
-                alt=""
-                className="w-12 h-12 rounded-full border border-[#30363d]"
-              />
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={async (e) => {
+                    e.stopPropagation();
+
+                    try {
+                      await addFavoriteRepository({
+                        repo_id: repo.id,
+                        repo_name: repo.name,
+                        owner: repo.owner,
+                        html_url: repo.url,
+                      });
+
+                      onFavoriteAdded?.();
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  className="w-9 h-9 rounded-full
+               bg-[#161b22]
+               border border-[#30363d]
+               flex items-center justify-center
+               hover:bg-yellow-500/20
+               hover:scale-110
+               transition"
+                >
+                  ⭐
+                </button>
+
+                <img
+                  src={repo.avatar}
+                  alt=""
+                  className="w-12 h-12 rounded-full border border-[#30363d]"
+                />
+              </div>
             </div>
 
             <div className="mt-5 flex flex-wrap gap-3">
