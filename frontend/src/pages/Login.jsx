@@ -47,11 +47,11 @@ export default function Login() {
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-gray-300 mb-2">Username</label>
+            <label className="block text-gray-300 mb-2">Email</label>
 
             <input
               type="text"
-              placeholder="Enter username"
+              placeholder="Enter email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 rounded-lg bg-[#0d1117] border border-gray-700 text-white focus:outline-none focus:border-blue-500"
