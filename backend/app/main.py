@@ -34,8 +34,6 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://localhost:5175",
         "http://127.0.0.1:5175",
-
-        # Vercel
         "https://frontend-pi-blue-11.vercel.app",
     ],
     allow_credentials=True,
