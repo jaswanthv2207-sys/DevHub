@@ -243,44 +243,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60
 
 ---
 
-# 📸 Screenshots
-
-## Login
-
-(Add Screenshot)
-
----
-
-## Dashboard
-
-(Add Screenshot)
-
----
-
-## Trending Repositories
-
-(Add Screenshot)
-
----
-
-## Repository Search
-
-(Add Screenshot)
-
----
-
-## Developer Search
-
-(Add Screenshot)
-
----
-
-## Favorites
-
-(Add Screenshot)
-
----
-
 # 🌐 API Endpoints
 
 ## Authentication
@@ -354,11 +316,11 @@ Demo Video
 
 Frontend
 
-(Add Vercel URL)
+https://frontend-pi-blue-11.vercel.app/
 
 Backend
 
-(Add Render URL)
+https://devhub-backend-egbw.onrender.com
 
 ---
 
@@ -376,7 +338,7 @@ https://github.com/jaswanthv2207-sys
 
 LinkedIn
 
-(Add LinkedIn Profile)
+https://www.linkedin.com/in/jaswanth-v-718495329/
 
 ---
 
